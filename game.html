@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="tartarus.js"></script>
+    <style type="text/css">
+        canvas {
+            background-color: lightgray;
+        }
+    </style>
+
+    <title>Tartarus Game - Kaya Oğuz, PhD</title>
+  </head>
+  <body onLoad="startGame()">
+  <div style="text-align: center">
+    <div>
+    <h1>Play Tartarus!</h1>
+    <p>
+    Play Tartarus as the software agent experiences it. Write down more information...
+    </p>
+    </div>
+    <canvas width="300" height="300" id="tartarusCanvas"></canvas>
+    <div>
+        <button onClick="JavaScript:moveAgent('left')" id="b1">Turn Left</button>
+        <button onClick="JavaScript:moveAgent('forward')" id="b2">Move Forward</button>
+        <button onClick="JavaScript:moveAgent('right')" id="b3">Turn Right</button>
+    </div>
+
+    <div id="messages" style="padding: 10px;">
+      Number of moves left: 80
+    </div>
+
+    <div id="info">
+
+    </div>
+  </div>
+  </body>
+</html>

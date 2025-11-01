@@ -1,0 +1,183 @@
+var tCell = new Image(); // tartarus cell
+var tBox = new Image(); // a box
+var tAgent = new Image(); // bulldozer
+var tWall = new Image(); // walls
+
+var posx;
+var posy;
+
+tCell.src = "cell.png";
+tBox.src = "box.png";
+tAgent.src = "agent.png";
+tWall.src = "wall.png";
+
+var map = new Array();
+var dir = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+var curDir; 
+var ix = [100, 0, 0, 0, 100, 200, 200, 200];
+var iy = [0, 0, 100, 200, 200, 200, 100, 0];
+
+var divInf;
+var divMsg;
+var numMoves = 80;
+
+
+function rotateCCW(v, d) {
+    x = Math.round(v[0] * Math.cos(Math.PI / d) - v[1] * Math.sin(Math.PI / d));
+    y = Math.round(v[0] * Math.sin(Math.PI / d) + v[1] * Math.cos(Math.PI / d));
+    return [x, y];
+}
+
+function startGame() {
+    gameArea.init();
+    divInf = document.getElementById("info");
+    divMsg = document.getElementById("messages");
+    // gameArea.context.drawImage(tAgent, 0, 0, 100, 100);
+    for(i=0;i<6;i++) {
+        map[i] = new Array();
+        for(j=0;j<6;j++) {
+            map[i][j] = 0;
+        }
+    }
+    
+    // generate 6 random boxes in the inner 4x4
+    // the index should be between 1 and 4 (both inclusive)
+
+    numboxes = 0;
+    while(numboxes < 6) {
+        // get a random pos_x and pos_y
+        posx = Math.floor(Math.random() * 4) + 1; 
+        posy = Math.floor(Math.random() * 4) + 1; 
+
+        if (map[posx][posy] == 0) {
+            map[posx][posy] = 1;
+            numboxes++;
+        }
+    }
+
+    // get a random pos for bulldozer
+    while(true) {
+        posx = Math.floor(Math.random() * 4) + 1; 
+        posy = Math.floor(Math.random() * 4) + 1; 
+
+        if (map[posx][posy] == 0) {
+            // map[posx][posy] = 2;
+            break;
+        }
+    }
+
+    // get a random direction
+    curDir = dir[Math.floor(Math.random()*4)];
+    drawArea();
+}
+
+function drawArea() {
+    // draw bulldozer's view
+    temp = curDir;
+    for(i=0;i<8;i++) {
+        cx = posx + temp[0];
+        cy = posy + temp[1];
+        if (cx < 0 || cy < 0 || cx > 5 || cy > 5) {
+            gameArea.context.drawImage(tWall, ix[i], iy[i], 100, 100);
+        } else if (map[cx][cy] == 1) {
+            gameArea.context.drawImage(tBox, ix[i], iy[i], 100, 100);
+        } else if(map[cx][cy] == 0) {
+            gameArea.context.drawImage(tCell, ix[i], iy[i], 100, 100);
+        }
+        temp = rotateCCW(temp, 4);
+    }
+
+    // draw bulldozer
+    gameArea.context.drawImage(tAgent, 100, 100, 100, 100);
+
+    //return;
+    // debug
+    myStr = "<pre>DEBUG!<br /> Direction:" + curDir + "<br /> Position:" + posx + "," + posy + "<br />";
+    for(i=5;i>=0;i--) {
+        for(j=5;j>=0;j--) {
+            if (i == posx && j == posy) {
+                myStr = myStr + "B";
+            } else {
+                myStr = myStr + map[i][j];
+            }
+        }
+        myStr = myStr + "<br />";
+    }
+    divInf.innerHTML = myStr + "</pre>";
+}
+
+function moveAgent(d) {
+    switch(d) {
+        case "left":
+            curDir = rotateCCW(curDir, 2);
+            drawArea();
+            break;
+        case "right":
+            curDir = rotateCCW(curDir, 0.66);
+            drawArea();
+            break;
+        case "forward":
+            tx = posx + curDir[0];
+            ty = posy + curDir[1];
+            if (tx < 0 || ty < 0 || tx > 5 || ty > 5) {
+                // walls! 
+                // do nothing
+            }
+            else if (map[tx][ty] == 0) {
+                // just move forward
+                posx = tx;
+                posy = ty;
+                drawArea();
+            } else {
+                // check if there is another box behind this box
+                qx = tx + curDir[0];
+                qy = ty + curDir[1];
+                if (qx < 0 || qy < 0 || qx > 5 || qy > 5) {
+                    // do nothing, walls.
+                }
+                else if(map[qx][qy] == 0) {
+                    // then we can move... 
+                    map[qx][qy] = 1;
+                    map[tx][ty] = 0;
+                    posx = tx;
+                    posy = ty;
+                    drawArea();
+                }
+            }
+            break;
+        default:
+            //alert("no such action!");
+            break;
+    }
+    numMoves--;
+    if(numMoves == 0) {
+        document.getElementById("b1").disabled = true;
+        document.getElementById("b2").disabled = true;
+        document.getElementById("b3").disabled = true;
+        // calculate score... 
+        f = 0;
+        for (i=0;i<6;i++) {
+            for(j=0;j<6;j++) {
+                if(map[i][j] == 1) {
+                    if(i==0 || i==5) f++;
+                    if(j==0 || j==5) f++;
+                }
+            }
+        }
+        divMsg.innerHTML = "You have no moves left. Your score is: " + f; 
+    }
+    else if(numMoves == 15) {
+        divMsg.style.color = "red";
+    } else {
+        divMsg.innerHTML = "Number of moves left: " + numMoves;
+    }
+}
+
+var gameArea = {
+canvas : null,
+init : function() {
+        this.canvas = document.getElementById("tartarusCanvas");
+        this.context = this.canvas.getContext("2d");
+    }
+}
+
