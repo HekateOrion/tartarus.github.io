@@ -1,5 +1,7 @@
 Testing something...
 
+Click here to test the game: https://hekateorion.github.io/tartarus.github.io/index.html
+
 The original code belongs to Kaya Oğuz.
 
 --------------------------------------------------------------
