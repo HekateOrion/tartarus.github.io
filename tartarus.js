@@ -1,8 +1,8 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://vrdwnlertivktrgpvdnd.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyZHdubGVydGl2a3RyZ3B2ZG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5OTM4NTgsImV4cCI6MjA3NzU2OTg1OH0.DnreW6g4QQ663fVK2NmQT4r7a8Pxy0_hOFDggJjhfVM'//process.env.SUPABASE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+const supabaseUrl = 'https://vrdwnlertivktrgpvdnd.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyZHdubGVydGl2a3RyZ3B2ZG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5OTM4NTgsImV4cCI6MjA3NzU2OTg1OH0.DnreW6g4QQ663fVK2NmQT4r7a8Pxy0_hOFDggJjhfVM'; //process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // MechanicalTurk entegrasyonu için ------------ şimdilik kullanılmıyor 
 /*
