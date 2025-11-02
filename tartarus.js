@@ -250,3 +250,5 @@ init : function() {
     }
 }
 
+window.startGame = startGame;
+
