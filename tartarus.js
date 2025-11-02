@@ -61,12 +61,12 @@ var divMsg;
 var numMoves = 80;
 
 
-
+/*
 var player_result = {
     position: { x: -1, y: -1 },
     score: -1
 }
-/*
+
 async function saveToSupabase() {
     try {
       const { data, error } = await supabase.from("game_results_score_position").insert([player_result]);
@@ -226,9 +226,12 @@ function moveAgent(d) {
             }
         }
         divMsg.innerHTML = "You have no moves left. Your score is: " + f;
+
+        /*
         player_result.position.x = posx;
         player_result.position.y = posy;
         player_result.score = f;
+        */
 
         //saveToSupabase(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
