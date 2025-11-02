@@ -65,7 +65,7 @@ var numMoves = 80;
 const player_result = {
     position: { x: -1, y: -1 },
     score: -1
-}
+};
 
 async function saveToSupabase() {
     try {
