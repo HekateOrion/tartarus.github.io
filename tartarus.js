@@ -1,10 +1,10 @@
-/*
+
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';//'@supabase/supabase-js';
 
 var supabaseUrl = 'https://vrdwnlertivktrgpvdnd.supabase.co';
 var supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyZHdubGVydGl2a3RyZ3B2ZG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5OTM4NTgsImV4cCI6MjA3NzU2OTg1OH0.DnreW6g4QQ663fVK2NmQT4r7a8Pxy0_hOFDggJjhfVM'; //process.env.SUPABASE_KEY
 var supabase = createClient(supabaseUrl, supabaseKey);
-*/
+
 
 // MechanicalTurk entegrasyonu için ------------ şimdilik kullanılmıyor 
 /*
@@ -61,7 +61,7 @@ var divMsg;
 var numMoves = 80;
 
 
-/*
+
 var player_result = {
     position: { x: -1, y: -1 },
     score: -1
@@ -76,7 +76,7 @@ async function saveToSupabase() {
       console.error("Error saving data:", err.message);
     }
 }
-*/
+
 
 
 
@@ -227,13 +227,13 @@ function moveAgent(d) {
         }
         divMsg.innerHTML = "You have no moves left. Your score is: " + f;
 
-        /*
+        
         player_result.position.x = posx;
         player_result.position.y = posy;
         player_result.score = f;
-        */
+        
 
-        //saveToSupabase(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        saveToSupabase(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
     else if(numMoves == 15) {
         divMsg.style.color = "red";
