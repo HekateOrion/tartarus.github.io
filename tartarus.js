@@ -59,7 +59,7 @@ var iy = [0, 0, 100, 200, 200, 200, 100, 0];
 var divInf;
 var divMsg;
 var numMoves = 80;
-var i;
+
 
 
 
@@ -92,9 +92,9 @@ function startGame() {
     divInf = document.getElementById("info");
     divMsg = document.getElementById("messages");
     // gameArea.context.drawImage(tAgent, 0, 0, 100, 100);
-    for(i=0;i<6;i++) {
+    for(let i=0;i<6;i++) {
         map[i] = new Array();
-        for(j=0;j<6;j++) {
+        for(let j=0;j<6;j++) {
             map[i][j] = 0;
         }
     }
@@ -133,7 +133,7 @@ function startGame() {
 function drawArea() {
     // draw bulldozer's view
     temp = curDir;
-    for(i=0;i<8;i++) {
+    for(let i=0;i<8;i++) {
         cx = posx + temp[0];
         cy = posy + temp[1];
         if (cx < 0 || cy < 0 || cx > 5 || cy > 5) {
@@ -152,8 +152,8 @@ function drawArea() {
     //return;
     // debug
     myStr = "<pre>DEBUG!<br /> Direction:" + curDir + "<br /> Position:" + posx + "," + posy + "<br />";
-    for(i=5;i>=0;i--) {
-        for(j=5;j>=0;j--) {
+    for(let i=5;i>=0;i--) {
+        for(let j=5;j>=0;j--) {
             if (i == posx && j == posy) {
                 myStr = myStr + "B";
             } else {
@@ -218,8 +218,8 @@ function moveAgent(d) {
         
         // calculate SCORE... 
         f = 0;
-        for (i=0;i<6;i++) {
-            for(j=0;j<6;j++) {
+        for (let i=0;i<6;i++) {
+            for(let j=0;j<6;j++) {
                 if(map[i][j] == 1) {
                     if(i==0 || i==5) f++;
                     if(j==0 || j==5) f++;
