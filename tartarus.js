@@ -212,7 +212,9 @@ function moveAgent(d) {
             break;
     }
     numMoves--;
+    console.log(map);
     every_step.push(map);
+    console.log(every_step);
 
     // oyun bitti mi diye kontrol et !!!!!!!!!! ----------------------------
     if(numMoves == 0) {
