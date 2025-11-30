@@ -43,6 +43,8 @@ var tAgent = new Image(); // bulldozer
 var tWall = new Image(); // walls
 
 var player_name;
+var player_id;
+var game_id;
 
 var posx;
 var posy;
@@ -84,6 +86,17 @@ async function saveToSupabase() {
 }
 
 
+async function savePlayerName() {
+    try {
+      const { data, error } = await supabase.from("player").insert([{username : player_name}]);
+      if (error) throw error;
+      console.log("Game data saved:", data);
+    } catch (err) {
+      console.error("Error saving data:", err.message);
+    }
+}
+
+
 function enterPlayerName(){
     player_name = document.getElementById("p_name").value;
     divWelcome = document.getElementById("welcome_message");
@@ -96,6 +109,8 @@ function enterPlayerName(){
 
 
     // PLAYER İSMİNİ DATABASE'E "PLAYER" TABLOSUNA KAYDET. PLAYER ID ÇEK, GLOBALDE TUT.
+
+    savePlayerName();
 
     // PLAYER ID İLE GAME TABLOSUNA SATIR AÇ. GAME İD VE TARİH OTOMATİK OLUŞSUN, SCORE ŞİMDİLİK 0. GAME İD'Yİ ÇEK, GLOBALDE TUT.
 
