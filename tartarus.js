@@ -42,6 +42,8 @@ var tBox = new Image(); // a box
 var tAgent = new Image(); // bulldozer
 var tWall = new Image(); // walls
 
+var player_name;
+
 var posx;
 var posy;
 
@@ -82,6 +84,38 @@ async function saveToSupabase() {
 }
 
 
+function enterPlayerName(){
+    player_name = document.getElementById("p_name").value;
+    divWelcome = document.getElementById("welcome_message");
+
+    divWelcome.innerHTML = "<p>Welcome " + player_name + "!</p>";
+
+    document.getElementById("p1").hidden = true;
+    document.getElementById("b4").disabled = true;
+    document.getElementById("p_name").disabled = true;
+
+    startGame();
+}
+
+
+
+function playAgain(){
+
+    numMoves = 80;
+
+    divMsg = document.getElementById("messages");
+    divMsg.style.color = "black";
+    divMsg.innerHTML = "Number of moves left: " + numMoves;
+
+    document.getElementById("b1").disabled = false;
+    document.getElementById("b2").disabled = false;
+    document.getElementById("b3").disabled = false;
+
+    document.getElementById("play_again").hidden = true;
+
+    startGame();
+}
+
 
 
 function rotateCCW(v, d) {
@@ -95,26 +129,45 @@ function startGame() {
     divInf = document.getElementById("info");
     divMsg = document.getElementById("messages");
     // gameArea.context.drawImage(tAgent, 0, 0, 100, 100);
-    for(let i=0;i<6;i++) {
-        map[i] = new Array();
-        for(let j=0;j<6;j++) {
-            map[i][j] = 0;
-        }
-    }
+
     
-    // generate 6 random boxes in the inner 4x4
-    // the index should be between 1 and 4 (both inclusive)
+    while(true){
 
-    let numboxes = 0;
-    while(numboxes < 6) {
-        // get a random pos_x and pos_y
-        posx = Math.floor(Math.random() * 4) + 1; 
-        posy = Math.floor(Math.random() * 4) + 1; 
-
-        if (map[posx][posy] == 0) {
-            map[posx][posy] = 1;
-            numboxes++;
+        for(i=0;i<6;i++) {
+            map[i] = new Array();
+            for(j=0;j<6;j++) {
+                map[i][j] = 0;
+            }
         }
+        
+        // generate 6 random boxes in the inner 4x4
+        // the index should be between 1 and 4 (both inclusive)
+
+
+        numboxes = 0;
+        while(numboxes < 6) {
+            // get a random pos_x and pos_y
+            posx = Math.floor(Math.random() * 4) + 1; 
+            posy = Math.floor(Math.random() * 4) + 1; 
+
+            if (map[posx][posy] == 0) {
+                map[posx][posy] = 1;
+                numboxes++;
+            }
+        }
+
+        let ok = true;
+
+        for(let i=1; i<5; i++){
+            for(let j=1; j<5; j++){
+                if(map[i][j]==1 && map[i+1][j]==1 && map[i][j+1]==1 && map[i+1][j+1]==1){
+                    console.log("4x4 detected. redrawing...");
+                    ok = false;                        
+                }
+            }
+        }
+
+        if(ok) break;
     }
 
     // get a random pos for bulldozer
@@ -260,6 +313,10 @@ function moveAgent(d) {
         
 
         saveToSupabase(); // !!!!!!!!!!
+
+        // yeniden oynamak için soru !!!!
+        divAgain = document.getElementById("play_again");
+        divAgain.hidden = false;
     }
     else if(numMoves == 15) {
         divMsg.style.color = "red";
