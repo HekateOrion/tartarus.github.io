@@ -99,7 +99,7 @@ async function savePlayerName() {
 
 function enterPlayerName(){
     player_name = document.getElementById("p_name").value;
-    divWelcome = document.getElementById("welcome_message");
+    var divWelcome = document.getElementById("welcome_message");
 
     divWelcome.innerHTML = "<p>Welcome " + player_name + "!</p>";
 
