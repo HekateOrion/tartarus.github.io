@@ -21,6 +21,12 @@
     Play Tartarus as the software agent experiences it. Write down more information...
     </p>
     </div>
+    <div>
+      <p id="p1">Please enter your name</p>
+      <input type="text" id="p_name" name="player_name">
+      <button onclick="JavaScript:enterPlayerName()" id="b4">Enter</button>
+    </div>
+    <div id="welcome_message"><p></p></div>
     <canvas width="300" height="300" id="tartarusCanvas"></canvas>
     <div>
         <button onClick="JavaScript:moveAgent('left')" id="b1">Turn Left</button>
@@ -31,7 +37,10 @@
     <div id="messages" style="padding: 10px;">
       Number of moves left: 80
     </div>
-
+    <div id="play_again" hidden="true">
+      <button onclick="playAgain()">Play Again?</button>
+    </div>
+    
     <div id="info">
 
     </div>
