@@ -359,4 +359,6 @@ init : function() {
 
 window.startGame = startGame;
 window.moveAgent = moveAgent;
+window.enterPlayerName = enterPlayerName;
+window.playAgain = playAgain;
 
