@@ -164,7 +164,7 @@ function startGame() {
         // the index should be between 1 and 4 (both inclusive)
 
 
-        numboxes = 0;
+        let numboxes = 0;
         while(numboxes < 6) {
             // get a random pos_x and pos_y
             posx = Math.floor(Math.random() * 4) + 1; 
