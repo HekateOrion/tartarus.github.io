@@ -153,9 +153,9 @@ function startGame() {
     
     while(true){
 
-        for(i=0;i<6;i++) {
+        for(let i=0;i<6;i++) {
             map[i] = new Array();
-            for(j=0;j<6;j++) {
+            for(let j=0;j<6;j++) {
                 map[i][j] = 0;
             }
         }
