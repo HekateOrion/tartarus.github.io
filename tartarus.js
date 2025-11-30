@@ -94,6 +94,11 @@ function enterPlayerName(){
     document.getElementById("b4").disabled = true;
     document.getElementById("p_name").disabled = true;
 
+
+    // PLAYER İSMİNİ DATABASE'E "PLAYER" TABLOSUNA KAYDET. PLAYER ID ÇEK, GLOBALDE TUT.
+
+    // PLAYER ID İLE GAME TABLOSUNA SATIR AÇ. GAME İD VE TARİH OTOMATİK OLUŞSUN, SCORE ŞİMDİLİK 0. GAME İD'Yİ ÇEK, GLOBALDE TUT.
+
     startGame();
 }
 
@@ -286,6 +291,10 @@ function moveAgent(d) {
     
     console.log(every_step);
 
+
+    // GAMEPLAY TABLOSUNA KAYDET, GAME İD'Yİ KULLANARAK.
+    
+
     // oyun bitti mi diye kontrol et !!!!!!!!!! ----------------------------
     if(numMoves == 0) {
         document.getElementById("b1").disabled = true;
@@ -312,7 +321,7 @@ function moveAgent(d) {
         player_result.board = every_step;  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
 
-        saveToSupabase(); // !!!!!!!!!!
+        saveToSupabase(); // !!!!!!!!!! FİNAL SCORE'U KAYDET. GAME İD'Yİ KULLANARAK.
 
         // yeniden oynamak için soru !!!!
         divAgain = document.getElementById("play_again");
