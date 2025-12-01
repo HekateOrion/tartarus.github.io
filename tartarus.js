@@ -77,22 +77,23 @@ const player_result = {
 
 async function saveToSupabase() {
     try {
-      const { data, error } = await supabase.from("game_results_score_position").insert([player_result]);
-      if (error) throw error;
-      console.log("Game data saved:", data);
+        const { data, error } = await supabase.from("game_results_score_position").insert([player_result]);
+        if (error) throw error;
+        console.log("Final game data saved:", data);
     } catch (err) {
-      console.error("Error saving data:", err.message);
+        console.error("Error saving final data:", err.message);
     }
 }
 
 
 async function savePlayerName() {
     try {
-      const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
-      if (error) throw error;
-      console.log("Data returned:", data);
+        const { data, error } = await supabase.from("player").upsert([{username : player_name}]).select();
+        if (error) throw error;
+        console.log("Player data returned:", data);
+        
     } catch (err) {
-      console.error("Error saving player data:", err.message);
+        console.error("Error saving player data:", err.message);
     }
 }
 
