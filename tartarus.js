@@ -88,7 +88,7 @@ async function saveToSupabase() {
 
 async function savePlayerName() {
     try {
-        const { data, error } = await supabase.from("player").upsert([{username : player_name}]).select();
+        const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
         if (error) throw error;
         console.log("Player data returned:", data);
         player_id = data[0].id;
