@@ -88,11 +88,11 @@ async function saveToSupabase() {
 
 async function savePlayerName() {
     try {
-      const { data, error } = await supabase.from("player").insert([{username : player_name}]).select("id");
+      const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
       if (error) throw error;
-      console.log("Game data saved:", data);
+      console.log("Data returned:", data);
     } catch (err) {
-      console.error("Error saving data:", err.message);
+      console.error("Error saving player data:", err.message);
     }
 }
 
