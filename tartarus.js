@@ -113,6 +113,28 @@ async function generateGameID() {
 }
 
 
+async function saveStep(a, d){
+    try {
+        let moveCount = 80 - numMoves;
+        const { data, error } = await supabase.from("gameplay").insert([{game_id : game_id, move : moveCount, action : d, board : a}]);
+        if (error) throw error;
+        console.log("Step data returned:", data);
+    } catch (err) {
+        console.error("Error saving player data:", err.message);
+    }
+}
+
+async function saveScore(f) {
+    try {
+        const { data, error } = await supabase.from("game").insert([score : f]);
+        if (error) throw error;
+        console.log("Final game data saved:", data);
+    } catch (err) {
+        console.error("Error saving final data:", err.message);
+    }
+}
+
+
 
 
 function enterPlayerName(){
@@ -307,7 +329,7 @@ function moveAgent(d) {
     numMoves--;
     
     
-    let a = new Array();
+    let a = new Array(); // current board state
 
     for(let i=0;i<6;i++) {
         a[i] = new Array();
@@ -316,18 +338,17 @@ function moveAgent(d) {
         }
     }
 
+    /*
     let step = new Array();
     step[0] = a;  // current board state
     step[1] = d;  // current action
-
-    console.log(step);
-    
+    console.log(step);    
     every_step.push(step);    
-    
     console.log(every_step);
-
+    */    
 
     // GAMEPLAY TABLOSUNA KAYDET, GAME İD'Yİ KULLANARAK.
+    saveStep(a, d);
     
 
     // oyun bitti mi diye kontrol et !!!!!!!!!! ----------------------------
@@ -348,15 +369,16 @@ function moveAgent(d) {
         }
         divMsg.innerHTML = "You have no moves left. Your score is: " + f;
 
-        
+        /*
         player_result.position.x = posx;
         player_result.position.y = posy;
         player_result.score = f;
         player_result.direction = curDir;
-        player_result.board = every_step;  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
+        player_result.board = every_step;
+        */
 
-        saveToSupabase(); // !!!!!!!!!! FİNAL SCORE'U KAYDET. GAME İD'Yİ KULLANARAK.
+        //saveToSupabase();
+        saveScore(f); // !!!!!!!!!! FİNAL SCORE'U KAYDET. GAME İD'Yİ KULLANARAK.
 
         // yeniden oynamak için soru !!!!
         divAgain = document.getElementById("play_again");
