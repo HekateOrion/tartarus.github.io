@@ -1,5 +1,5 @@
 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';//'@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';//'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';//'@supabase/supabase-js';
 
 const supabaseUrl = 'https://vrdwnlertivktrgpvdnd.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyZHdubGVydGl2a3RyZ3B2ZG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5OTM4NTgsImV4cCI6MjA3NzU2OTg1OH0.DnreW6g4QQ663fVK2NmQT4r7a8Pxy0_hOFDggJjhfVM'; //process.env.SUPABASE_KEY
@@ -99,6 +99,22 @@ async function savePlayerName() {
 }
 
 
+
+async function generateGameID() {
+    try {
+        const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
+        if (error) throw error;
+        console.log("Player data returned:", data);
+        game_id = data[0].id;
+        console.log("Game id:" , game_id);
+    } catch (err) {
+        console.error("Error saving player data:", err.message);
+    }
+}
+
+
+
+
 function enterPlayerName(){
     player_name = document.getElementById("p_name").value;
     var divWelcome = document.getElementById("welcome_message");
@@ -115,6 +131,8 @@ function enterPlayerName(){
     savePlayerName();
 
     // PLAYER ID İLE GAME TABLOSUNA SATIR AÇ. GAME İD VE TARİH OTOMATİK OLUŞSUN, SCORE ŞİMDİLİK 0. GAME İD'Yİ ÇEK, GLOBALDE TUT.
+
+    generateGameID();
 
     startGame();
 }
