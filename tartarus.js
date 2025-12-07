@@ -103,7 +103,7 @@ async function savePlayerName() {
     }
 }
 
-
+/*
 async function generateGameID(){
     try {      
         const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
@@ -116,7 +116,7 @@ async function generateGameID(){
     }
 
 }
-
+*/
 
 
 
@@ -137,7 +137,7 @@ function enterPlayerName(){
 
     // PLAYER ID İLE GAME TABLOSUNA SATIR AÇ. GAME İD VE TARİH OTOMATİK OLUŞSUN, SCORE ŞİMDİLİK 0. GAME İD'Yİ ÇEK, GLOBALDE TUT.
 
-    generateGameID();
+    //generateGameID();
 
     startGame();
 }
