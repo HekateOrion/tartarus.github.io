@@ -88,11 +88,6 @@ async function saveToSupabase() {
 
 async function savePlayerName() {
     try {
-        /*
-        let { data, error } = await supabase.rpc('newPlayer', {player_name});
-        if (error) console.error(error);
-        else console.log("Player id returned:", data);
-        */        
         const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
         if (error) throw error;
         console.log("Player data returned:", data);
@@ -102,22 +97,6 @@ async function savePlayerName() {
         console.error("Error saving player data:", err.message);
     }
 }
-
-/*
-async function generateGameID(){
-    try {      
-        const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
-        if (error) throw error;
-        console.log("Game data returned:", data);
-        //player_id = data[0].id;
-        //console.log("Player id:" , player_id);
-    } catch (err) {
-        console.error("Error saving player data:", err.message);
-    }
-
-}
-*/
-
 
 
 function enterPlayerName(){
@@ -136,8 +115,6 @@ function enterPlayerName(){
     savePlayerName();
 
     // PLAYER ID İLE GAME TABLOSUNA SATIR AÇ. GAME İD VE TARİH OTOMATİK OLUŞSUN, SCORE ŞİMDİLİK 0. GAME İD'Yİ ÇEK, GLOBALDE TUT.
-
-    //generateGameID();
 
     startGame();
 }
