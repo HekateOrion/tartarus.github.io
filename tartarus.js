@@ -86,7 +86,7 @@ async function saveToSupabase() {
 }
 
 
-sync function savePlayerName() {
+function savePlayerName() {
     try {
         const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
         if (error) throw error;
@@ -100,7 +100,7 @@ sync function savePlayerName() {
 
 
 
-sync function generateGameID() {
+function generateGameID() {
     try {
         const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
         if (error) throw error;
@@ -113,7 +113,7 @@ sync function generateGameID() {
 }
 
 
-sync function saveStep(a, d){
+function saveStep(a, d){
     try {
         let moveCount = 80 - numMoves;
         const { data, error } = await supabase.from("gameplay").insert([{game_id : game_id, move : moveCount, action : d, board : a}]);
@@ -124,7 +124,7 @@ sync function saveStep(a, d){
     }
 }
 
-sync function saveScore(f) {
+function saveScore(f) {
     try {
         const { data, error } = await supabase.from("game").update([{score : f}]).eq('id', game_id);  // UPDATE DEMELİSİN BURDA SALAK !!
         if (error) throw error;
