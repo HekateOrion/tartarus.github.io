@@ -126,7 +126,7 @@ async function saveStep(a, d){
 
 async function saveScore(f) {
     try {
-        const { data, error } = await supabase.from("game").insert([score : f]);
+        const { data, error } = await supabase.from("game").insert([{score : f}]);
         if (error) throw error;
         console.log("Final game data saved:", data);
     } catch (err) {
