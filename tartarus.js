@@ -86,13 +86,21 @@ async function saveToSupabase() {
 }
 
 
-function savePlayerName() {
+async function savePlayerName() {
     try {
         const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
         if (error) throw error;
         console.log("Player data returned:", data);
         player_id = data[0].id;
         console.log("Player id:" , player_id);
+
+        const { data1, error1 } = await supabase.from("game").insert([{player_id : player_id}]).select();
+        if (error1) throw error;
+        console.log("Game data returned:", data1);
+        game_id = data1[0].id;
+        console.log("Game id:" , game_id);
+
+        
     } catch (err) {
         console.error("Error saving player data:", err.message);
     }
@@ -100,7 +108,7 @@ function savePlayerName() {
 
 
 
-function generateGameID() {
+async function generateGameID() {
     try {
         const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
         if (error) throw error;
@@ -113,7 +121,7 @@ function generateGameID() {
 }
 
 
-function saveStep(a, d){
+async function saveStep(a, d){
     try {
         let moveCount = 80 - numMoves;
         const { data, error } = await supabase.from("gameplay").insert([{game_id : game_id, move : moveCount, action : d, board : a}]);
@@ -124,7 +132,7 @@ function saveStep(a, d){
     }
 }
 
-function saveScore(f) {
+async function saveScore(f) {
     try {
         const { data, error } = await supabase.from("game").update([{score : f}]).eq('id', game_id);  // UPDATE DEMELİSİN BURDA SALAK !!
         if (error) throw error;
@@ -154,7 +162,7 @@ function enterPlayerName(){
 
     // PLAYER ID İLE GAME TABLOSUNA SATIR AÇ. GAME İD VE TARİH OTOMATİK OLUŞSUN, SCORE ŞİMDİLİK 0. GAME İD'Yİ ÇEK, GLOBALDE TUT.
 
-    generateGameID();
+    //generateGameID();
 
     startGame();
 }
