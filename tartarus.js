@@ -126,7 +126,7 @@ async function saveStep(a, d){
 
 async function saveScore(f) {
     try {
-        const { data, error } = await supabase.from("game").insert([{score : f}]);
+        const { data, error } = await supabase.from("game").update([{score : f}]).eq('id', game_id);  // UPDATE DEMELİSİN BURDA SALAK !!
         if (error) throw error;
         console.log("Final game data saved:", data);
     } catch (err) {
@@ -381,7 +381,7 @@ function moveAgent(d) {
         saveScore(f); // !!!!!!!!!! FİNAL SCORE'U KAYDET. GAME İD'Yİ KULLANARAK.
 
         // yeniden oynamak için soru !!!!
-        divAgain = document.getElementById("play_again");
+        let divAgain = document.getElementById("play_again");
         divAgain.hidden = false;
     }
     else if(numMoves == 15) {
