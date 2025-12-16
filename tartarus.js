@@ -275,7 +275,7 @@ function drawArea() {
     // draw bulldozer
     gameArea.context.drawImage(tAgent, 100, 100, 100, 100);
 
-    //return;
+    return;
     // debug
     let myStr = "<pre>DEBUG!<br /> Direction:" + curDir + "<br /> Position:" + posx + "," + posy + "<br />";
     for(let i=5;i>=0;i--) {
