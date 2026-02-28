@@ -89,13 +89,14 @@ async function saveToSupabase() {
 async function savePlayerName() {
     try {
 
-        const { data, error } = await supabase.rpc('start_new_game', {p_username: 'Hekate'});
+        const { data, error } = await supabase.rpc('start_new_game', {p_username: player_name});
         if (error) {
           console.error("Error starting game:", error);
         } else {
           console.log("New game ID:", data);
         }
-
+        player_id = data;
+        console.log("Player id:", player_id);
         
         /*
         const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
