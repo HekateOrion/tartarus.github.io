@@ -95,8 +95,8 @@ async function savePlayerName() {
         } else {
           console.log("New game ID:", data);
         }
-        player_id = data;
-        console.log("Player id:", player_id);
+        game_id = data;
+        console.log("Game id:", game_id);
         
         /*
         const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
