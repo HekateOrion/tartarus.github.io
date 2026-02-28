@@ -88,6 +88,16 @@ async function saveToSupabase() {
 
 async function savePlayerName() {
     try {
+
+        const { data, error } = await supabase.rpc('start_new_game', {p_username: 'Hekate'});
+        if (error) {
+          console.error("Error starting game:", error);
+        } else {
+          console.log("New game ID:", data);
+        }
+
+        
+        /*
         const { data, error } = await supabase.from("player").insert([{username : player_name}]).select();
         if (error) throw error;
         console.log("Player data returned:", data);
@@ -99,7 +109,7 @@ async function savePlayerName() {
         console.log("Game data returned:", data1);
         game_id = data1[0].id;
         console.log("Game id:" , game_id);
-
+        */
         
     } catch (err) {
         console.error("Error saving player data:", err.message);
@@ -108,7 +118,7 @@ async function savePlayerName() {
 
 
 
-async function generateGameID() {
+async function generateGameID() { // ŞU ANDA KULLANILMIYOR
     try {
         const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
         if (error) throw error;
