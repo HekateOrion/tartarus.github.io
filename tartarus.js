@@ -119,20 +119,6 @@ async function savePlayerName() {
 }
 
 
-
-async function generateGameID() { // ŞU ANDA KULLANILMIYOR
-    try {
-        const { data, error } = await supabase.from("game").insert([{player_id : player_id}]).select();
-        if (error) throw error;
-        console.log("Player data returned:", data);
-        game_id = data[0].id;
-        console.log("Game id:" , game_id);
-    } catch (err) {
-        console.error("Error saving player data:", err.message);
-    }
-}
-
-
 async function saveStep(a, d){
     try {
         let moveCount = 80 - numMoves;
@@ -154,6 +140,32 @@ async function saveScore(f) {
     }
 }
 
+
+function playAgain(){
+
+    numMoves = 80;
+
+    divMsg = document.getElementById("messages");
+    divMsg.style.color = "black";
+    divMsg.innerHTML = "Number of moves left: " + numMoves;
+
+    document.getElementById("b1").disabled = false;
+    document.getElementById("b2").disabled = false;
+    document.getElementById("b3").disabled = false;
+
+    document.getElementById("play_again").hidden = true;
+
+    const { data, error } = await supabase.rpc('play_another_game', {p_player_id: player_id});
+
+    if (error) {
+      console.error(error);
+    } else {
+      game_id = data;
+      console.log("New Game ID:", game_id);
+    }
+
+    startGame();
+}
 
 
 
@@ -181,31 +193,7 @@ function enterPlayerName(){
 
 
 
-function playAgain(){
 
-    numMoves = 80;
-
-    divMsg = document.getElementById("messages");
-    divMsg.style.color = "black";
-    divMsg.innerHTML = "Number of moves left: " + numMoves;
-
-    document.getElementById("b1").disabled = false;
-    document.getElementById("b2").disabled = false;
-    document.getElementById("b3").disabled = false;
-
-    document.getElementById("play_again").hidden = true;
-
-    const { data, error } = await supabase.rpc('play_again', {p_player_id: player_id});
-
-    if (error) {
-      console.error(error);
-    } else {
-      game_id = data;
-      console.log("New Game ID:", game_id);
-    }
-
-    startGame();
-}
 
 
 
