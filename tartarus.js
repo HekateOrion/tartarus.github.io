@@ -195,6 +195,15 @@ function playAgain(){
 
     document.getElementById("play_again").hidden = true;
 
+    const { data, error } = await supabase.rpc('play_again', {p_player_id: player_id});
+
+    if (error) {
+      console.error(error);
+    } else {
+      game_id = data;
+      console.log("New Game ID:", game_id);
+    }
+
     startGame();
 }
 
