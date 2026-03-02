@@ -141,7 +141,7 @@ async function saveScore(f) {
 }
 
 
-function playAgain(){
+async function playAgain(){
 
     numMoves = 80;
 
@@ -155,7 +155,7 @@ function playAgain(){
 
     document.getElementById("play_again").hidden = true;
 
-    const { data, error } = await supabase.rpc('play_another_game', {p_player_id: player_id});
+    const { data, error } = await supabase.rpc('play_another_game', { p_player_id: player_id });
 
     if (error) {
       console.error(error);
