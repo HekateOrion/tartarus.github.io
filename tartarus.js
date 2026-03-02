@@ -122,19 +122,15 @@ async function savePlayerName() {
 async function saveStep(a, d){
     try {
         let moveCount = 80 - numMoves;
-        const { data, error } = await supabase.from("gameplay").insert([{game_id : game_id, move : moveCount, action : d, board : a}]);
-        if (error) throw error;
-        console.log("Step data returned:", data);
+        await supabase.rpc('insert_gameplay_move', { p_game_id: game_id, p_board: a, p_action: d, p_move: moveCount });
     } catch (err) {
-        console.error("Error saving player data:", err.message);
+        console.error("Error saving game step data:", err.message);
     }
 }
 
 async function saveScore(f) {
     try {
-        const { data, error } = await supabase.from("game").update([{score : f}]).eq('id', game_id);  // UPDATE DEMELİSİN BURDA SALAK !!
-        if (error) throw error;
-        console.log("Final game data saved:", data);
+        await supabase.rpc('finish_game', { p_game_id: game_id, p_final_score: f });
     } catch (err) {
         console.error("Error saving final data:", err.message);
     }
